@@ -4,7 +4,7 @@ import { stat, rename as fsRename } from 'fs/promises';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const fileExists = (path) =>
+const checkOfExistence = (path) =>
   stat(path)
     .then(() => true)
     .catch(() => false);
@@ -14,8 +14,8 @@ const rename = async () => {
   const resultFile = join(__dirname, 'files/properFilename.md');
 
   try {
-    const hasSourceFile = await fileExists(sourceFile);
-    const hasResultFile = await fileExists(resultFile);
+    const hasSourceFile = await checkOfExistence(sourceFile);
+    const hasResultFile = await checkOfExistence(resultFile);
 
     const isError = !hasSourceFile || hasResultFile;
 

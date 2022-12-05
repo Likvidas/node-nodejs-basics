@@ -4,7 +4,7 @@ import { stat, writeFile } from 'fs/promises';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const fileExists = (path) =>
+const checkOfExistence = (path) =>
   stat(path)
     .then(() => true)
     .catch(() => false);
@@ -15,7 +15,7 @@ const create = async () => {
   const ERROR_MESSAGE = 'FS operation failed';
 
   try {
-    const hasFileExists = await fileExists(targetPath);
+    const hasFileExists = await checkOfExistence(targetPath);
     if (hasFileExists) {
       throw new Error(ERROR_MESSAGE);
     }
