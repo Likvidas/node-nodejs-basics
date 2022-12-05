@@ -1,25 +1,28 @@
-import { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
-import { stat, writeFile } from 'fs/promises'
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import { stat, writeFile } from 'fs/promises';
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const fileExists = (path) => stat(path).then(() => true).catch(() => false)
+const fileExists = (path) =>
+  stat(path)
+    .then(() => true)
+    .catch(() => false);
 
 const create = async () => {
-  const targetPath = join(__dirname, 'files/fresh.txt')
-  const TEXT = 'I am fresh and young'
-  const ERROR_MESSAGE = 'FS operation failed'
+  const targetPath = join(__dirname, 'files/fresh.txt');
+  const TEXT = 'I am fresh and young';
+  const ERROR_MESSAGE = 'FS operation failed';
 
   try {
-    const isFileExists = await fileExists(targetPath)
-    if (isFileExists) {
-      throw new Error(ERROR_MESSAGE)
+    const hasFileExists = await fileExists(targetPath);
+    if (hasFileExists) {
+      throw new Error(ERROR_MESSAGE);
     }
-    await writeFile(targetPath, TEXT)
+    await writeFile(targetPath, TEXT);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
+};
 
-await create()
+await create();
