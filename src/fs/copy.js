@@ -2,17 +2,17 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { copyFile, mkdir, readdir, stat } from 'fs/promises';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const directoryExists = (path) =>
   stat(path)
     .then(() => true)
     .catch(() => false);
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const sourcePath = join(__dirname, 'files');
-const destinationPath = join(__dirname, 'files_copy');
-
 const copy = async () => {
   try {
+    const sourcePath = join(__dirname, 'files');
+    const destinationPath = join(__dirname, 'files_copy');
     const hasSourceDirectory = await directoryExists(sourcePath);
     const hasDestinationDirectory = await directoryExists(destinationPath);
     const isError = !hasSourceDirectory || hasDestinationDirectory;
